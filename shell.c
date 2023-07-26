@@ -3,7 +3,7 @@
 /**
  * getcmd - reads the command using getline.
  * @cmd: memory location of the command read.
- * @len: the length parameter for getline.
+ * @len: length parameter for getline.
  *
  * Return: the length of the input.
  */
@@ -27,15 +27,13 @@ ssize_t getcmd(char **cmd, size_t *len)
 		free(*cmd);
 		exit(EXIT_FAILURE);
 	}
-
 	if (read_len > 0 && (*cmd)[read_len - 1] == '\n')
 		(*cmd)[read_len - 1] = '\0';
-
-	return (read_len - 1);
+	return (read_len);
 }
 
 /**
- * execute - forks a child process and executes the command using execve.
+ * execute forks a child process and executes the command using execve
  * @cmd: the command to execute.
  * @av: argument vector from main containing the name of the program.
  * @env: the list of environment variables.
@@ -51,6 +49,7 @@ int execute(char *cmd, char **av, char **env)
 
 	exec[0] = malloc(MAX_COM_LEN * sizeof(char));
 	_strcpy(exec[0], cmd);
+
 	pid = fork();
 	if (pid == -1)
 	{
@@ -68,13 +67,14 @@ int execute(char *cmd, char **av, char **env)
 			exit(EXIT_FAILURE);
 		}
 	} else
-		if (waitpid(pid, &status, 0) == -1)
+		if (wait(&status) == -1)
 		{
-			perror("waitpid");
+			perror("wait");
 			free(exec[0]);
 			free(exec);
 			exit(EXIT_FAILURE);
 		}
+	
 	free(exec[0]);
 	free(exec);
 	return (status);
@@ -102,6 +102,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		read_len = getcmd(&command, &len);
 		if (!interactive && read_len <= 1)
 			break;
+
 		status = execute(command, av, env);
 		if (status == -1)
 			exit(EXIT_FAILURE);
