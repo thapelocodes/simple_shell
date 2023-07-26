@@ -1,9 +1,10 @@
 #include "shell.h"
+#include <string.h>
 
 /**
  * getcmd - reads the command using getline.
  * @cmd: memory location of the command read.
- * @len: length parameter for getline.
+ * @len: the length parameter for getline.
  *
  * Return: the length of the input.
  */
@@ -27,13 +28,15 @@ ssize_t getcmd(char **cmd, size_t *len)
 		free(*cmd);
 		exit(EXIT_FAILURE);
 	}
+
 	if (read_len > 0 && (*cmd)[read_len - 1] == '\n')
 		(*cmd)[read_len - 1] = '\0';
+
 	return (read_len);
 }
 
 /**
- * execute forks a child process and executes the command using execve
+ * execute - forks a child process and executes the command using execve.
  * @cmd: the command to execute.
  * @av: argument vector from main containing the name of the program.
  * @env: the list of environment variables.
@@ -57,7 +60,8 @@ int execute(char *cmd, char **av, char **env)
 		free(exec[0]);
 		free(exec);
 		exit(EXIT_FAILURE);
-	} else if (pid == 0)
+	}
+	else if (pid == 0)
 	{
 		if (execve(exec[0], exec, env) == -1)
 		{
@@ -66,7 +70,8 @@ int execute(char *cmd, char **av, char **env)
 			free(exec);
 			exit(EXIT_FAILURE);
 		}
-	} else
+	}
+	else
 		if (wait(&status) == -1)
 		{
 			perror("wait");
@@ -74,7 +79,7 @@ int execute(char *cmd, char **av, char **env)
 			free(exec);
 			exit(EXIT_FAILURE);
 		}
-	
+
 	free(exec[0]);
 	free(exec);
 	return (status);
@@ -84,7 +89,7 @@ int execute(char *cmd, char **av, char **env)
  * main - UNIX command line interpreter.
  * @ac: arg count.
  * @av: arg vector.
- * @env: list of env vars.
+ * @env: environment vector.
  *
  * Return: 0 (Success).
  */
@@ -107,6 +112,7 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		if (status == -1)
 			exit(EXIT_FAILURE);
 	}
+
 	free(command);
 	return (0);
 }
