@@ -31,7 +31,7 @@ ssize_t getcmd(char **cmd, size_t *len)
 	if (read_len > 0 && (*cmd)[read_len - 1] == '\n')
 		(*cmd)[read_len - 1] = '\0';
 
-	return (read_len);
+	return (read_len - 1);
 }
 
 /**
@@ -50,8 +50,7 @@ int execute(char *cmd, char **av, char **env)
 	char **exec = malloc(2 * sizeof(char *));
 
 	exec[0] = malloc(MAX_COM_LEN * sizeof(char));
-	strcpy(exec[0], cmd);
-
+	_strcpy(exec[0], cmd);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -59,8 +58,7 @@ int execute(char *cmd, char **av, char **env)
 		free(exec[0]);
 		free(exec);
 		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
+	} else if (pid == 0)
 	{
 		if (execve(exec[0], exec, env) == -1)
 		{
@@ -69,8 +67,7 @@ int execute(char *cmd, char **av, char **env)
 			free(exec);
 			exit(EXIT_FAILURE);
 		}
-	}
-	else
+	} else
 		if (waitpid(pid, &status, 0) == -1)
 		{
 			perror("waitpid");
@@ -78,7 +75,6 @@ int execute(char *cmd, char **av, char **env)
 			free(exec);
 			exit(EXIT_FAILURE);
 		}
-
 	free(exec[0]);
 	free(exec);
 	return (status);
@@ -106,12 +102,10 @@ int main(int ac __attribute__((unused)), char **av, char **env)
 		read_len = getcmd(&command, &len);
 		if (!interactive && read_len <= 1)
 			break;
-
 		status = execute(command, av, env);
 		if (status == -1)
 			exit(EXIT_FAILURE);
 	}
-
 	free(command);
 	return (0);
 }

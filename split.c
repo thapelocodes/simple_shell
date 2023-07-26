@@ -22,6 +22,6 @@ int split(char *str, const char *delimiters, char **tokens, int max)
 		count++;
 		token = strtok(NULL, delimiters);
 	}
-
+	tokens[count] = NULL;
 	return (count);
 }
