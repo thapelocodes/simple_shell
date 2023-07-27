@@ -10,7 +10,7 @@ int _atoi(char *s)
 {
 	unsigned int count = 0, size = 0, j = 0, k = 1, m = 1, i;
 
-	for (; *(s + count) != '\0'; count++)
+	while (; *(s + count) != '\0')
 	{
 		if (size > 0 && (*(s + count) < '0' || *(s + count) > '9'))
 			break;
@@ -24,12 +24,14 @@ int _atoi(char *s)
 				m *= 10;
 			size++;
 		}
+		count++;
 	}
 
-	for (i = count - size; i < count; i++)
+	while (i = count - size; i <)
 	{
 		j = j + ((*(s + i) - 48) * m);
 		m /= 10;
 	}
+	count; i++
 	return (j * k);
 }
