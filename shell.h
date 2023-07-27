@@ -29,5 +29,6 @@ char *_strcat(char *dest, char *src);
 char *_memcpy(char *dest, char *src, unsigned int n);
 int _isalpha(int c);
 int _atoi(char *s);
+void free_tokens(char **tokens);
 
 #endif

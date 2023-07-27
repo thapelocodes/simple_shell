@@ -9,7 +9,7 @@
  * Return: 0 if str1 = str2 up to n bytes, otherwise *str1 - *str2.
  */
 
-int _strncmp(const char* str1, const char* str2, size_t n)
+int _strncmp(const char *str1, const char *str2, size_t n)
 {
 	size_t i = 0;
 

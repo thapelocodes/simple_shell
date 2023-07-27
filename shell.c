@@ -1,4 +1,5 @@
 #include "shell.h"
+#include <string.h>
 
 /**
  * getcmd - reads the command using getline.
@@ -50,7 +51,7 @@ int execute(char *cmd, char **av, char **env)
 	char **exec = malloc(2 * sizeof(char *));
 
 	exec[0] = malloc(MAX_COM_LEN * sizeof(char));
-	strcpy(exec[0], cmd);
+	_strcpy(exec[0], cmd);
 
 	pid = fork();
 	if (pid == -1)
@@ -71,9 +72,9 @@ int execute(char *cmd, char **av, char **env)
 		}
 	}
 	else
-		if (waitpid(pid, &status, 0) == -1)
+		if (wait(&status) == -1)
 		{
-			perror("waitpid");
+			perror("wait");
 			free(exec[0]);
 			free(exec);
 			exit(EXIT_FAILURE);
@@ -88,7 +89,7 @@ int execute(char *cmd, char **av, char **env)
  * main - UNIX command line interpreter.
  * @ac: arg count.
  * @av: arg vector.
- * @env: list of env vars.
+ * @env: environment vector.
  *
  * Return: 0 (Success).
  */
