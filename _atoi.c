@@ -27,12 +27,20 @@ int _atoi(char *s)
 		count++;
 	}
 
+<<<<<<< HEAD
 	i = count - size;
 	while (i < count)
+=======
+	while (i = count - size); 
+>>>>>>> 41c9fd036f1d974a1f19edccb1c0ef6988a25dda
 	{
 		j = j + ((*(s + i) - 48) * m);
 		m /= 10;
 		i++;
 	}
+<<<<<<< HEAD
+=======
+	count; i++;
+>>>>>>> 41c9fd036f1d974a1f19edccb1c0ef6988a25dda
 	return (j * k);
 }
