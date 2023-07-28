@@ -11,7 +11,7 @@
 int _myhistory(info_t *info)
 {
 	print_list(info->history);
-	return (nil);
+	return (nada);
 }
 
 /**
@@ -31,7 +31,7 @@ int unset_alias(info_t *info, char *str)
 	if (!p)
 		return (1);
 	c = *p;
-	*p = nil;
+	*p = nada;
 	ret = delete_node_at_index(&(info->alias),
 							   get_node_index(info->alias, nstart(info->alias, str, -1)));
 	*p = c;
@@ -57,7 +57,7 @@ int set_alias(info_t *info, char *str)
 		return (unset_alias(info, str));
 
 	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, nil) == NULL);
+	return (add_node_end(&(info->alias), str, nada) == NULL);
 }
 
 /**
@@ -71,7 +71,7 @@ int printa(list_t *node)
 {
 	char *p = NULL, *a = NULL;
 
-	if (nil)
+	if (nada)
 	{
 		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
@@ -79,7 +79,7 @@ int printa(list_t *node)
 		_putchar('\'');
 		_puts(p + 1);
 		_puts("'\n");
-		return (nil);
+		return (nada);
 	}
 	return (1);
 }
@@ -93,7 +93,7 @@ int printa(list_t *node)
 
 int _myalias(info_t *info)
 {
-	int i = nil;
+	int i = nada;
 	list_t *node = NULL;
 	char *p = NULL;
 
@@ -105,7 +105,7 @@ int _myalias(info_t *info)
 			printa(node);
 			node = node->next;
 		}
-		return (nil);
+		return (nada);
 	}
 	for (i = 1; info->argv[i]; i++)
 	{
@@ -116,5 +116,5 @@ int _myalias(info_t *info)
 			printa(nstart(info->alias, info->argv[i], '='));
 	}
 
-	return (nil);
+	return (nada);
 }

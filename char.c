@@ -8,12 +8,12 @@
  * Return: true if delim, false if not.
  */
 
-bool is_delim(char c, const char *delim)
+int is_delim(char c, const char *delim)
 {
 	while (*delim)
 		if (*delim++ == c)
-			return(true);
-	return (false);
+			return(uno);
+	return (nada);
 }
 
 /**
@@ -23,7 +23,7 @@ bool is_delim(char c, const char *delim)
  * Return: true if c is alphabetic, false otherwise.
  */
 
-bool _isalpha(int c)
+int _isalpha(int c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

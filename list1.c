@@ -35,12 +35,12 @@ char **lstostr(list_t *head)
 
 	if (!head || !i)
 		return (NULL);
-	strs = malloc(sizeof(char *) * (i + solo));
+	strs = malloc(sizeof(char *) * (i + uno));
 	if (!strs)
 		return (NULL);
 	for (i = nil; node; node = node->next, i++)
 	{
-		str = malloc(_strlen(node->str) + solo);
+		str = malloc(_strlen(node->str) + uno);
 		if (!str)
 		{
 			for (j = nil; j < i; j++)
@@ -96,7 +96,7 @@ list_t *nstart(list_t *node, char *prefix, char c)
 	while (node)
 	{
 		p = starts_with(node->str, prefix);
-		if (p && ((c == n_solo) || (*p == c)))
+		if (p && ((c == n_uno) || (*p == c)))
 			return (node);
 		node = node->next;
 	}
@@ -122,5 +122,5 @@ ssize_t getnodei(list_t *head, list_t *node)
 		head = head->next;
 		i++;
 	}
-	return (n_solo);
+	return (n_uno);
 }
