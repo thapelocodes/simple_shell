@@ -179,3 +179,17 @@ void fork_cmd(info_t *info)
 		}
 	}
 }
+
+/**
+ *interactive - returns true if shell is interactive mode
+ *@infor: struct address
+ *
+ *Return: 1 if interactive mode, 0 otherwise
+ */
+
+int interactive(info_t *infor)
+{
+	bool result = (isatty(STDIN_FILENO) && infor->readfd <= duo);
+
+	return (result);
+}
