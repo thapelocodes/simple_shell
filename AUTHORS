@@ -1,4 +1,5 @@
-# This file lists all contributors to the repository.
+# This file lists all individuals having contributed content to the repository.
+# For how it is generated, see `hack/generate-authors.sh`.
 
-Thapelo Michael Moumakoe <123243154+tm-moumakoe@users.noreply.github.com>
-Tsumee Mantsomane Moloisi <tsumeemoloisi@gmail.com>
+Co-authored-by: Thapelo Michael Moumakoe <123243154+tm-moumakoe@users.noreply.github.com>
+Co-authored-by: Tsumee <tsumeemoloisi@gmail.com>
