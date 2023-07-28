@@ -64,7 +64,7 @@ int find_builtin(info_t *info)
 		},
 		{ "env", _myenv
 		},
-		{ "help", _myhelp
+		{ "_myhelp", _myhelp
 		},
 		{ "history", _myhistory
 		},
@@ -189,7 +189,7 @@ void fork_cmd(info_t *info)
 
 int interactive(info_t *infor)
 {
-	bool result = (isatty(STDIN_FILENO) && infor->readfd <= duo);
+	bool result = (isatty(STDIN_FILENO) && infor->readfd <= dos);
 
 	return (result);
 }

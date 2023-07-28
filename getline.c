@@ -33,7 +33,7 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 				r--;
 			}
 			info->linecount_flag = uno;
-			remove_comments(*buf);
+			rmcmt(*buf);
 			build_history_list(info, *buf, info->histcount++);
 			/* if (_strchr(*buf, ';')) is this a command chain? */
 			{
@@ -106,7 +106,7 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 
 	if (*i)
 		return (nada);
-	r = read(info->readfd, buf, READ_BUF_SIZE);
+	r = read(info->readfd, buf, RD_BUF_SIZE);
 	if (r >= nada)
 		*i = r;
 	return (r);
@@ -123,7 +123,7 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 
 int _getline(info_t *info, char **ptr, size_t *length)
 {
-	static char buf[READ_BUF_SIZE];
+	static char buf[RD_BUF_SIZE];
 	static size_t i, len;
 	size_t k;
 	ssize_t r = nada, s = nada;

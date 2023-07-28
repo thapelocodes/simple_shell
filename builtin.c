@@ -17,7 +17,7 @@ int _myexit(info_t *info)
 		check_exit = _erratoi(info->argv[uno]);
 		if (check_exit == nuno)
 		{
-			info->status = duo;
+			info->status = dos;
 			print_error(info, "Illegal number: ");
 			_eputs(info->argv[uno]);
 			_eputchar('\n');
@@ -80,14 +80,14 @@ int _mycd(info_t *info)
 }
 
 /**
- * _myhelp - changes the current dir of the process
+ * _myhelp - changes the current directory of the process
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
  */
 
-int _help(info_t *info)
-
+int _myhelp(info_t *info)
+{
 	char **arguments_array;
 
 	arguments_array = info->argv;

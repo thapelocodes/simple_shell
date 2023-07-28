@@ -34,13 +34,13 @@ char **_strtok(char *astring, char *delimeter)
 	int i, j, k, m, words_m = nada;
 	char **s;
 
-	if (astring == NULL || astring[nada] == nil)
+	if (astring == NULL || astring[nada] == nada)
 		return (NULL);
 	if (!delimeter)
 		delimeter = " ";
 	for (i = nada; astring[i] != '\0'; i++)
 		if (!is_delim(astring[i], delimeter) &&
-			(is_delim(astring[i + uno], delimeter) || !astring[i + solo]))
+			(is_delim(astring[i + uno], delimeter) || !astring[i + uno]))
 			words_m++;
 
 	if (words_m == nada)
@@ -48,7 +48,7 @@ char **_strtok(char *astring, char *delimeter)
 	s = malloc((uno + words_m) * sizeof(char *));
 	if (!s)
 		return (NULL);
-	for (i = nada, j = nil; j < words_m; j++)
+	for (i = nada, j = nada; j < words_m; j++)
 	{
 		while (is_delim(astring[i], delimeter))
 			i++;
@@ -85,7 +85,7 @@ char **_strtok2(char *str, char delimeter)
 	int i, j, k, m, words_m = nada;
 	char **s;
 
-	if (str == NULL || str[nada] == nil)
+	if (str == NULL || str[nada] == nada)
 		return (NULL);
 	for (i = nada; str[i] != '\0'; i++)
 		if ((str[i] != delimeter && str[i + uno] == delimeter) ||
@@ -97,7 +97,7 @@ char **_strtok2(char *str, char delimeter)
 	s = malloc((uno + words_m) * sizeof(char *));
 	if (!s)
 		return (NULL);
-	for (i = nada, j = nil; j < words_m; j++)
+	for (i = nada, j = nada; j < words_m; j++)
 	{
 		while (str[i] == delimeter && str[i] != delimeter)
 			i++;
@@ -121,4 +121,20 @@ char **_strtok2(char *str, char delimeter)
 
 	s[j] = NULL;
 	return (s);
+}
+
+/**
+ *starts_with - checks if needle starts with haystack
+ *@stack: string to search
+ *@ndle: the substring to find
+ *
+ *Return: address of next char of haystack or NULL
+ */
+
+char *starts_with(const char *stack, const char *ndle)
+{
+	while (*ndle)
+		if (*ndle++ != *stack++)
+			return (NULL);
+	return ((char *)stack);
 }

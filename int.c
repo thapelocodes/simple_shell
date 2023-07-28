@@ -28,7 +28,7 @@ int _atoi(char *s)
 	}
 
 	i = count - size;
-	while (i < size && m >= 1); 
+	while (i < size && m >= 1)
 	{
 		result = result + ((*(s + i) - 48) * m);
 		m /= 10;

@@ -79,7 +79,7 @@ int bfree(void **pointer)
 	{
 		free(*pointer);
 		*pointer = NULL;
-		return (solo);
+		return (uno);
 	}
 	return (nada);
 }

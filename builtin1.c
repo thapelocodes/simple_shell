@@ -25,15 +25,15 @@ int _myhistory(info_t *info)
 int unset_alias(info_t *info, char *str)
 {
 	char *p, c;
-	int ret;
+	int ret, node_;
 
 	p = _strchr(str, '=');
 	if (!p)
 		return (1);
 	c = *p;
 	*p = nada;
-	ret = delete_node_at_index(&(info->alias),
-							   get_node_index(info->alias, nstart(info->alias, str, -1)));
+	node_ = get_node_index(info->alias, nstart(info->alias, str, -1));
+	ret = delete_node_at_index(&(info->alias), node_);
 	*p = c;
 	return (ret);
 }

@@ -9,7 +9,7 @@
 
 size_t list_len(const list_t *h)
 {
-	size_t i = nil;
+	size_t i = nada;
 
 	while (h)
 	{
@@ -20,13 +20,13 @@ size_t list_len(const list_t *h)
 }
 
 /**
- * lstostr - returns an array of strings of the list->str
+ * list_to_strings - returns an array of strings of the list->str
  * @head: pointer to first node
  *
  * Return: array of strings
  */
 
-char **lstostr(list_t *head)
+char **list_to_strings(list_t *head)
 {
 	list_t *node = head;
 	size_t i = list_len(head), j;
@@ -38,12 +38,12 @@ char **lstostr(list_t *head)
 	strs = malloc(sizeof(char *) * (i + uno));
 	if (!strs)
 		return (NULL);
-	for (i = nil; node; node = node->next, i++)
+	for (i = nada; node; node = node->next, i++)
 	{
 		str = malloc(_strlen(node->str) + uno);
 		if (!str)
 		{
-			for (j = nil; j < i; j++)
+			for (j = nada; j < i; j++)
 				free(strs[j]);
 			free(strs);
 			return (NULL);
@@ -65,14 +65,14 @@ char **lstostr(list_t *head)
 
 size_t print_list(const list_t *h)
 {
-	size_t i = nil;
+	size_t i = nada;
 
 	while (h)
 	{
-		_puts(convert_number(h->num, 10, nil));
+		_puts(_itoa(h->num, 10, nada));
 		_putchar(':');
 		_putchar(' ');
-		_puts(h->str ? h->str : "(nil)");
+		_puts(h->str ? h->str : "(nada)");
 		_puts("\n");
 		h = h->next;
 		i++;
@@ -96,7 +96,7 @@ list_t *nstart(list_t *node, char *prefix, char c)
 	while (node)
 	{
 		p = starts_with(node->str, prefix);
-		if (p && ((c == n_uno) || (*p == c)))
+		if (p && ((c == nuno) || (*p == c)))
 			return (node);
 		node = node->next;
 	}
@@ -104,16 +104,16 @@ list_t *nstart(list_t *node, char *prefix, char c)
 }
 
 /**
- * getnodei - gets the index of a node
+ * get_node_index - gets the index of a node
  * @head: pointer to list head
  * @node: pointer to the node
  *
  * Return: index of node or -1
  */
 
-ssize_t getnodei(list_t *head, list_t *node)
+ssize_t get_node_index(list_t *head, list_t *node)
 {
-	size_t i = nil;
+	size_t i = nada;
 
 	while (head)
 	{
@@ -122,5 +122,5 @@ ssize_t getnodei(list_t *head, list_t *node)
 		head = head->next;
 		i++;
 	}
-	return (n_uno);
+	return (nuno);
 }

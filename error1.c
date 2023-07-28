@@ -31,11 +31,11 @@ void _eputs(char *str)
 int _eputchar(char c)
 {
 	static int in;
-	static char buf[WRITE_BUF_SIZE];
+	static char buf[WR_BUF_SIZE];
 
-	if (c == BUF_FLUSH || in >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || in >= WR_BUF_SIZE)
 	{
-		write(duo, buf, in);
+		write(dos, buf, in);
 		in = nada;
 	}
 	if (c != BUF_FLUSH)

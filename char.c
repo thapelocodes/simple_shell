@@ -8,11 +8,11 @@
  * Return: true if delim, false if not.
  */
 
-int is_delim(char c, const char *delim)
+int is_delim(char c, char *delim)
 {
 	while (*delim)
 		if (*delim++ == c)
-			return(uno);
+			return (uno);
 	return (nada);
 }
 
@@ -35,12 +35,12 @@ int _isalpha(int c)
  * Return: 1 on success, -1 on error and errno is set appropriately.
  */
 
-int _putchar(int c)
+int _putchar(char c)
 {
 	static int i;
-	static char buf[WRITE_BUF_SIZE];
+	static char buf[WR_BUF_SIZE];
 
-	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || i >= WR_BUF_SIZE)
 	{
 		write(1, buf, i);
 		i = 0;
@@ -61,9 +61,9 @@ int _putchar(int c)
 int _putfd(char c, int fd)
 {
 	static int i;
-	static char buf[WRITE_BUF_SIZE];
+	static char buf[WR_BUF_SIZE];
 
-	if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || i >= WR_BUF_SIZE)
 	{
 		write(fd, buf, i);
 		i = 0;

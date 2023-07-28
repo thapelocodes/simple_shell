@@ -49,47 +49,7 @@ void print_error(info_t *info, char *estr)
 }
 
 /**
- * print_d - function prints a decimal (integer) number (base 10)
- * @input: the input
- * @fd: the filedescriptor to write to
- *
- * Return: number of characters printed
- */
-
-int print_d(int input, int fd)
-{
-	int (*__putchar)(char) = _putchar;
-	int index, count = nada;
-	unsigned int _abs_, current;
-
-	if (fd == STDERR_FILENO)
-		__putchar = _eputchar;
-	if (input < nada)
-	{
-		_abs_ = -input;
-		__putchar('-');
-		count++;
-	}
-	else
-		_abs_ = input;
-	current = _abs_;
-	for (index = 1000000000; index > uno; index /= 10)
-	{
-		if (_abs_ / index)
-		{
-			__putchar('0' + current / index);
-			count++;
-		}
-		current %= index;
-	}
-	__putchar('0' + current);
-	count++;
-
-	return (count);
-}
-
-/**
- * convert_number - converter function, a cluno of itoa
+ * _itoa - converter function, a cluno of _itoa
  * @num: number
  * @base: base
  * @flags: argument flags
@@ -97,7 +57,7 @@ int print_d(int input, int fd)
  * Return: string
  */
 
-char *convert_number(long int num, int base, int flags)
+char *_itoa(long int num, int base, int flags)
 {
 	static char *array_;
 	static char buffer[50];

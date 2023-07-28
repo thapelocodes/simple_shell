@@ -10,7 +10,7 @@
 
 int main(int ac, char **av)
 {
-	info_t infor[] = {INFO_INIT};
+	info_t infor[] = {SHELL_INIT};
 	int f_x = dos;
 
 	asm("mov %1, %0\n\t"
@@ -38,7 +38,7 @@ int main(int ac, char **av)
 		}
 		infor->readfd = f_x;
 	}
-	populate_env_list(infor);
+	fillenvls(infor);
 	read_history(infor);
 	hsh(infor, av);
 	return (EXIT_SUCCESS);

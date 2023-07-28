@@ -7,7 +7,7 @@
  * Return: size_t length of string.
  */
 
-size_t _strlen(char *s)
+int _strlen(char *s)
 {
 	size_t len = 0;
 
@@ -54,7 +54,7 @@ char *_strcat(char *dest, char *src)
 	while (*dest)
 		dest++;
 	while (*src)
-		dest++ = *src++;
+		*dest++ = *src++;
 	*dest = *src;
 	return (ret);
 }
@@ -73,7 +73,7 @@ char *_strcpy(char *dest, char *src)
 
 	if (dest == src || src == 0)
 		return (dest);
-	while (src[i]);
+	while (src[i])
 	{
 		dest[i] = src[i];
 		i++;

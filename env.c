@@ -51,9 +51,9 @@ int _mysetenv(info_t *info)
 		_eputs("Incorrect number of arguements\n");
 		return (nada);
 	}
-	if (_setenv(info, info->argv[solo], info->argv[2]))
+	if (_setenv(info, info->argv[uno], info->argv[2]))
 		return (nada);
-	return (solo);
+	return (uno);
 }
 
 /**
@@ -67,12 +67,12 @@ int _myunsetenv(info_t *info)
 {
 	int i;
 
-	if (info->argc == solo)
+	if (info->argc == uno)
 	{
 		_eputs("Too few arguements.\n");
-		return (solo);
+		return (uno);
 	}
-	for (i = solo; i <= info->argc; i++)
+	for (i = uno; i <= info->argc; i++)
 		_unsetenv(info, info->argv[i]);
 
 	return (nada);

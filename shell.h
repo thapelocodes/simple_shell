@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <dirent.h>
 #include <stdbool.h>
+#include <limits.h>
 
 /* for command chaining */
 #define CMD_NORM 0
@@ -26,8 +27,8 @@
 #define BUF_FLUSH -1
 
 /* for _itoa() */
-#define CONV_LC 1
-#define CONV_U
+#define CONVERT_LOWERCASE 1
+#define CONVERT_UNSIGNED 2
 
 /* for shell history */
 #define HIST_FILE ".simple_shell_history"
@@ -40,7 +41,7 @@
 /* for shell info */
 #define SHELL_INIT \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-        0, 0, 0}
+	0, 0, 0}
 
 extern char **environ;
 
@@ -82,7 +83,7 @@ typedef struct liststr
 } list_t;
 
 /**
- *struct passinfo - contains pseudo-arguements to pass into a function,
+ *struct shell_info - contains pseudo-arguements to pass into a function,
  *		allowing uniform prototype for function pointer struct
  *@arg: a string generated from getline containing arguements
  *@argv: an array of strings generated from arg
@@ -126,11 +127,18 @@ typedef struct shell_info
 	int histcount;
 } info_t;
 
+/**
+ * struct builtin - contains the builtin commands and pointers
+ * to their functions.
+ * @type: name of the builtin command.
+ * @func: the associated function pointer.
+ */
+
 typedef struct builtin
 {
 	char *type;
 	int (*func)(info_t *);
-} biultin_table;
+} builtin_table;
 
 int hsh(info_t *, char **);
 int find_builtin(info_t *);
@@ -155,8 +163,8 @@ int _putchar(char);
 char *_strncpy(char *, char *, int);
 char *_strncat(char *, char *, int);
 char *_strchr(char *, char);
-char **strtow(char *, char *);
-char **strtow2(char *, char);
+char **_strtok(char *, char *);
+char **_strtok2(char *, char);
 char *_memset(char *, char, unsigned int);
 void ffree(char **);
 void *_realloc(void *, unsigned int, unsigned int);
@@ -185,7 +193,7 @@ char *_getenv(info_t *, const char *);
 int _myenv(info_t *);
 int _mysetenv(info_t *);
 int _myunsetenv(info_t *);
-int populate_env_list(info_t *);
+int fillenvls(info_t *);
 char **get_environ(info_t *);
 int _unsetenv(info_t *, char *);
 int _setenv(info_t *, char *, char *);
@@ -196,13 +204,13 @@ int build_history_list(info_t *info, char *buf, int linecount);
 int renumber_history(info_t *info);
 list_t *add_node(list_t **, const char *, int);
 list_t *add_node_end(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
+size_t printls(const list_t *);
 int delete_node_at_index(list_t **, unsigned int);
 void free_list(list_t **);
 size_t list_len(const list_t *);
 char **list_to_strings(list_t *);
 size_t print_list(const list_t *);
-list_t *node_starts_with(list_t *, char *, char);
+list_t *nstart(list_t *, char *, char);
 ssize_t get_node_index(list_t *, list_t *);
 int is_chain(info_t *, char *, size_t *);
 void check_chain(info_t *, char *, size_t *, size_t, size_t);
