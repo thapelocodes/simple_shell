@@ -12,21 +12,21 @@ int _myexit(info_t *info)
 {
 	int check_exit;
 
-	if (info->argv[solo]) /* If there is an exit arguement */
+	if (info->argv[uno]) /* If there is an exit arguement */
 	{
-		check_exit = _erratoi(info->argv[solo]);
-		if (check_exit == n_solo)
+		check_exit = _erratoi(info->argv[uno]);
+		if (check_exit == n_uno)
 		{
-			info->status = duo;
+			info->status = dos;
 			print_error(info, "Illegal number: ");
-			_eputs(info->argv[solo]);
+			_eputs(info->argv[uno]);
 			_eputchar('\n');
-			return (solo);
+			return (uno);
 		}
-		info->err_num = _erratoi(info->argv[solo]);
+		info->err_num = _erratoi(info->argv[uno]);
 		return (-2);
 	}
-	info->err_num = n_solo;
+	info->err_num = n_uno;
 	return (-2);
 }
 
@@ -45,7 +45,7 @@ int _mycd(info_t *info)
 	s = getcwd(buffer, 1024);
 	if (!s)
 		_puts("TODO: >>getcwd failure emsg here<<\n");
-	if (!info->argv[solo])
+	if (!info->argv[uno])
 	{
 		directory = _getenv(info, "HOME=");
 		if (!directory)
@@ -54,31 +54,31 @@ int _mycd(info_t *info)
 		else
 			chdirectory = chdir(directory);
 	}
-	else if (_strcmp(info->argv[solo], "-") == nil)
+	else if (_strcmp(info->argv[uno], "-") == nada)
 	{
 		if (!_getenv(info, "OLDPWD="))
 		{
 			_puts(s);
 			_putchar('\n');
-			return (solo);
+			return (uno);
 		}
 		_puts(_getenv(info, "OLDPWD=")), _putchar('\n');
 		chdirectory = /* TODO: what should this be? */
 			chdir((directory = _getenv(info, "OLDPWD=")) ? directory : "/");
 	}
 	else
-		chdirectory = chdir(info->argv[solo]);
-	if (chdirectory == n_solo)
+		chdirectory = chdir(info->argv[uno]);
+	if (chdirectory == n_uno)
 	{
 		print_error(info, "can't cd to ");
-		_eputs(info->argv[solo]), _eputchar('\n');
+		_eputs(info->argv[uno]), _eputchar('\n');
 	}
 	else
 	{
 		_setenv(info, "OLDPWD", _getenv(info, "PWD="));
 		_setenv(info, "PWD", getcwd(buffer, 1024));
 	}
-	return (nil);
+	return (nada);
 }
 
 /**
@@ -94,7 +94,7 @@ int _myhelp(info_t *info)
 
 	arguments_array = info->argv;
 	_puts("help call works. Function not yet implemented \n");
-	if (nil)
+	if (nada)
 		_puts(*arguments_array); /* temp att_unused workaround */
-	return (nil);
+	return (nada);
 }

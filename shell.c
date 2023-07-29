@@ -10,56 +10,56 @@
 
 int hsh(info_t *info, char **av)
 {
-	ssize_t rs = nil;
-	int builtin_ret = nil;
+	ssize_t rs = nada;
+	int bltn_ret = nada;
 
-	while (rs != n_solo && builtin_ret != -2)
+	while (rs != n_uno && bltn_ret != -2)
 	{
 		clear_info(info);
 		if (interactive(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		rs = get_input(info);
-		if (rs != n_solo)
+		if (rs != n_uno)
 		{
 			set_info(info, av);
-			builtin_ret = find_builtin(info);
-			if (builtin_ret == n_solo)
+			bltn_ret = find_bltn(info);
+			if (bltn_ret == n_uno)
 				find_cmd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
-		free_info(info, nil);
+		free_info(info, nada);
 	}
 
-	write_history(info);
-	free_info(info, solo);
+	wr_history(info);
+	free_info(info, uno);
 	if (!interactive(info) && info->status)
 		exit(info->status);
-	if (builtin_ret == -2)
+	if (bltn_ret == -2)
 	{
-		if (info->err_num == n_solo)
+		if (info->err_num == n_uno)
 			exit(info->status);
 		exit(info->err_num);
 	}
 
-	return (builtin_ret);
+	return (bltn_ret);
 }
 
 /**
- *find_builtin - finds a builtin command
+ *find_bltn - finds a bltn command
  *@info: the parameter &return info struct
  *
- *Return: -1 if builtin not found,
- *			0 if builtin executed successfully,
- *			1 if builtin found but not successful,
- *			-2 if builtin signals exit()
+ *Return: -1 if bltn not found,
+ *			0 if bltn executed successfully,
+ *			1 if bltn found but not successful,
+ *			-2 if bltn signals exit()
  */
 
-int find_builtin(info_t *info)
+int find_bltn(info_t *info)
 {
-	int index, builtin_ret = n_solo;
-	builtin_table builtintbl[] = {
+	int index, bltn_ret = n_uno;
+	bltn_table bltntbl[] = {
 		{ "exit", _myexit
 		},
 		{ "env", _myenv
@@ -81,16 +81,16 @@ int find_builtin(info_t *info)
 		}
 	};
 
-	for (index = nil; builtintbl[index].type; index++)
-		if (_strcmp(info->argv[nil],
-				builtintbl[index].type) == nil)
+	for (index = nada; bltntbl[index].type; index++)
+		if (_strcmp(info->argv[nada],
+				bltntbl[index].type) == nada)
 		{
 			info->line_count++;
-			builtin_ret = builtintbl[index].func(info);
+			bltn_ret = bltntbl[index].func(info);
 			break;
 		}
 
-	return (builtin_ret);
+	return (bltn_ret);
 }
 
 /**
@@ -105,21 +105,21 @@ void find_cmd(info_t *info)
 	char *path = NULL;
 	int index, xk;
 
-	info->path = info->argv[nil];
-	if (info->linecount_flag == solo)
+	info->path = info->argv[nada];
+	if (info->linecount_flag == uno)
 	{
 		info->line_count++;
-		info->linecount_flag = nil;
+		info->linecount_flag = nada;
 	}
 
-	for (index = nil, xk = nil; info->arg[index]; index++)
+	for (index = nada, xk = nada; info->arg[index]; index++)
 		if (!is_delim(info->arg[index], " \t\n"))
 			xk++;
 	if (!xk)
 		return;
 
 	path = find_path(info, _getenv(info, "PATH="),
-		info->argv[nil]);
+		info->argv[nada]);
 	if (path)
 	{
 		info->path = path;
@@ -128,8 +128,8 @@ void find_cmd(info_t *info)
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=") ||
-				info->argv[nil][nil] == '/') &&
-			is_cmd(info, info->argv[nil]))
+				info->argv[nada][nada] == '/') &&
+			is_cmd(info, info->argv[nada]))
 			fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
@@ -151,21 +151,21 @@ void fork_cmd(info_t *info)
 	pid_t pod_child;
 
 	pod_child = fork();
-	if (pod_child == n_solo)
+	if (pod_child == n_uno)
 	{
 		perror("Error:");
 		return;
 	}
 
-	if (pod_child == nil)
+	if (pod_child == nada)
 	{
 		if (execve(info->path, info->argv,
-				get_environ(info)) == n_solo)
+				get_environ(info)) == n_uno)
 		{
-			free_info(info, solo);
+			free_info(info, uno);
 			if (errno == EACCES)
 				exit(126);
-			exit(solo);
+			exit(uno);
 		}
 	}
 	else

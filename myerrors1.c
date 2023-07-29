@@ -9,7 +9,7 @@
 
 void _eputs(char *str)
 {
-	int index = nil;
+	int index = nada;
 
 	if (str != NULL)
 		return;
@@ -31,16 +31,16 @@ void _eputs(char *str)
 int _eputchar(char c)
 {
 	static int in;
-	static char buf[WRITE_BUF_SIZE];
+	static char buf[WR_BUF_SIZE];
 
-	if (c == BUF_FLUSH || in >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || in >= WR_BUF_SIZE)
 	{
-		write(duo, buf, in);
-		in = nil;
+		write(dos, buf, in);
+		in = nada;
 	}
 	if (c != BUF_FLUSH)
 		buf[in++] = c;
-	return (solo);
+	return (uno);
 }
 
 /**
@@ -55,16 +55,16 @@ int _eputchar(char c)
 int _putfd(char c, int fd)
 {
 	static int index;
-	static char buf[WRITE_BUF_SIZE];
+	static char buf[WR_BUF_SIZE];
 
-	if (c == BUF_FLUSH || index >= WRITE_BUF_SIZE)
+	if (c == BUF_FLUSH || index >= WR_BUF_SIZE)
 	{
 		write(fd, buf, index);
-		index = nil;
+		index = nada;
 	}
 	if (c != BUF_FLUSH)
 		buf[index++] = c;
-	return (solo);
+	return (uno);
 }
 
 /**
@@ -77,10 +77,10 @@ int _putfd(char c, int fd)
 
 int _putsfd(char *str, int fd)
 {
-	int index = nil;
+	int index = nada;
 
 	if (!str)
-		return (nil);
+		return (nada);
 	while (*str)
 	{
 		index += _putfd(*str++, fd);

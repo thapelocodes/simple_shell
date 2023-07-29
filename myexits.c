@@ -32,7 +32,7 @@ char *_strncpy(char *dest, char *src, int n)
 }
 
 /**
- **_strncat - concatenates duo strings
+ **_strncat - concatenates dos strings
  *@dest: the first string
  *@src: the second string
  *@n: the amount of bytes to be maximally used

@@ -9,22 +9,22 @@
 
 int _erratoi(char *s)
 {
-	int index = nil;
-	unsigned long int result = nil;
+	int index = nada;
+	unsigned long int result = nada;
 
 	if (*s == '+')
 		s++; /* TODO: why does this make main return 255? */
-	for (index = nil; s[index] != '\0'; index++)
+	for (index = nada; s[index] != '\0'; index++)
 	{
 		if (s[index] >= '0' && s[index] <= '9')
 		{
 			result *= 10;
 			result += (s[index] - '0');
 			if (result > INT_MAX)
-				return (nil);
+				return (nada);
 		}
 		else
-			return (n_solo);
+			return (n_uno);
 	}
 	return (result);
 }
@@ -43,7 +43,7 @@ void print_error(info_t *info, char *estr)
 	_eputs(": ");
 	print_d(info->line_count, STDERR_FILENO);
 	_eputs(": ");
-	_eputs(info->argv[nil]);
+	_eputs(info->argv[nada]);
 	_eputs(": ");
 	_eputs(estr);
 }
@@ -59,12 +59,12 @@ void print_error(info_t *info, char *estr)
 int print_d(int input, int fd)
 {
 	int (*__putchar)(char) = _putchar;
-	int index, count = nil;
+	int index, count = nada;
 	unsigned int _abs_, current;
 
 	if (fd == STDERR_FILENO)
 		__putchar = _eputchar;
-	if (input < nil)
+	if (input < nada)
 	{
 		_abs_ = -input;
 		__putchar('-');
@@ -73,7 +73,7 @@ int print_d(int input, int fd)
 	else
 		_abs_ = input;
 	current = _abs_;
-	for (index = 1000000000; index > solo; index /= 10)
+	for (index = 1000000000; index > uno; index /= 10)
 	{
 		if (_abs_ / index)
 		{
@@ -89,7 +89,7 @@ int print_d(int input, int fd)
 }
 
 /**
- * convert_number - converter function, a cluno of itoa
+ * myitoa - converter function, a cluno of itoa
  * @num: number
  * @base: base
  * @flags: argument flags
@@ -97,28 +97,28 @@ int print_d(int input, int fd)
  * Return: string
  */
 
-char *convert_number(long int num, int base, int flags)
+char *myitoa(long int num, int base, int flags)
 {
 	static char *array_;
 	static char buffer[50];
-	char sign = nil;
+	char sign = nada;
 	char *ptr;
 	unsigned long anum = num;
 
-	if (!(flags & CONVERT_UNSIGNED) && num < nil)
+	if (!(flags & CONVU) && num < nada)
 	{
 		anum = -num;
 		sign = '-';
 	}
 
-	array_ = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	array_ = flags & CONVLC ? "0123456789abcdef" : "0123456789ABCDEF";
 	ptr = &buffer[49];
 	*ptr = '\0';
 
 	do {
 		*--ptr = array_[anum % base];
 		anum /= base;
-	} while (anum != nil);
+	} while (anum != nada);
 
 	if (sign)
 		*--ptr = sign;
@@ -126,18 +126,18 @@ char *convert_number(long int num, int base, int flags)
 }
 
 /**
- * remove_comments - function replaces first instance of '#' with '\0'
+ * rmcmt - function replaces first instance of '#' with '\0'
  * @buff: address of the string to modify
  *
  * Return: Always 0;
  */
 
-void remove_comments(char *buff)
+void rmcmt(char *buff)
 {
 	int index;
 
-	for (index = nil; buff[index] != '\0'; index++)
-		if (buff[index] == '#' && (!index || buff[index - solo] == ' '))
+	for (index = nada; buff[index] != '\0'; index++)
+		if (buff[index] == '#' && (!index || buff[index - uno] == ' '))
 		{
 			buff[index] = '\0';
 			break;

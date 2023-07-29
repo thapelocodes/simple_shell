@@ -11,7 +11,7 @@
 int _myhistory(info_t *info)
 {
 	print_list(info->history);
-	return (nil);
+	return (nada);
 }
 
 /**
@@ -31,9 +31,9 @@ int unset_alias(info_t *info, char *str)
 	if (!p)
 		return (1);
 	c = *p;
-	*p = nil;
-	ret = delete_node_at_index(&(info->alias),
-							   get_node_index(info->alias, node_starts_with(info->alias, str, -1)));
+	*p = nada;
+	ret = delnodei(&(info->alias),
+							   getnodei(info->alias, node_startw(info->alias, str, -1)));
 	*p = c;
 	return (ret);
 }
@@ -57,7 +57,7 @@ int set_alias(info_t *info, char *str)
 		return (unset_alias(info, str));
 
 	unset_alias(info, str);
-	return (add_node_end(&(info->alias), str, nil) == NULL);
+	return (add_node_end(&(info->alias), str, nada) == NULL);
 }
 
 /**
@@ -71,7 +71,7 @@ int print_alias(list_t *node)
 {
 	char *p = NULL, *a = NULL;
 
-	if (nil)
+	if (nada)
 	{
 		p = _strchr(node->str, '=');
 		for (a = node->str; a <= p; a++)
@@ -79,13 +79,13 @@ int print_alias(list_t *node)
 		_putchar('\'');
 		_puts(p + 1);
 		_puts("'\n");
-		return (nil);
+		return (nada);
 	}
 	return (1);
 }
 
 /**
- * _myalias - mimics the alias builtin (man alias)
+ * _myalias - mimics the alias bltn (man alias)
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  *  Return: Always 0
@@ -93,7 +93,7 @@ int print_alias(list_t *node)
 
 int _myalias(info_t *info)
 {
-	int i = nil;
+	int i = nada;
 	list_t *node = NULL;
 	char *p = NULL;
 
@@ -105,7 +105,7 @@ int _myalias(info_t *info)
 			print_alias(node);
 			node = node->next;
 		}
-		return (nil);
+		return (nada);
 	}
 	for (i = 1; info->argv[i]; i++)
 	{
@@ -113,8 +113,8 @@ int _myalias(info_t *info)
 		if (p)
 			set_alias(info, info->argv[i]);
 		else
-			print_alias(node_starts_with(info->alias, info->argv[i], '='));
+			print_alias(node_startw(info->alias, info->argv[i], '='));
 	}
 
-	return (nil);
+	return (nada);
 }

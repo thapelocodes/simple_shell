@@ -10,7 +10,7 @@
 int _myenv(info_t *info)
 {
 	print_list_str(info->env);
-	return (nil);
+	return (nada);
 }
 
 /**
@@ -28,7 +28,7 @@ char *_getenv(info_t *info, const char *name)
 
 	while (node)
 	{
-		a = starts_with(node->str, name);
+		a = startw(node->str, name);
 		if (a && *a)
 			return (a);
 		node = node->next;
@@ -49,11 +49,11 @@ int _mysetenv(info_t *info)
 	if (info->argc != 3)
 	{
 		_eputs("Incorrect number of arguements\n");
-		return (nil);
+		return (nada);
 	}
-	if (_setenv(info, info->argv[solo], info->argv[2]))
-		return (nil);
-	return (solo);
+	if (_setenv(info, info->argv[uno], info->argv[2]))
+		return (nada);
+	return (uno);
 }
 
 /**
@@ -67,31 +67,31 @@ int _myunsetenv(info_t *info)
 {
 	int i;
 
-	if (info->argc == solo)
+	if (info->argc == uno)
 	{
 		_eputs("Too few arguements.\n");
-		return (solo);
+		return (uno);
 	}
-	for (i = solo; i <= info->argc; i++)
+	for (i = uno; i <= info->argc; i++)
 		_unsetenv(info, info->argv[i]);
 
-	return (nil);
+	return (nada);
 }
 
 /**
- * populate_env_list - populates env linked list
+ * fill_el - populates env linked list
  * @info: Structure containing potential arguments. Used to maintain
  *          constant function prototype.
  * Return: Always 0
  */
 
-int populate_env_list(info_t *info)
+int fill_el(info_t *info)
 {
 	list_t *node = NULL;
 	size_t i;
 
-	for (i = nil; environ[i]; i++)
-		add_node_end(&node, environ[i], nil);
+	for (i = nada; environ[i]; i++)
+		add_node_end(&node, environ[i], nada);
 	info->env = node;
-	return (nil);
+	return (nada);
 }

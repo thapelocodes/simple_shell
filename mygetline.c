@@ -11,8 +11,8 @@
 
 ssize_t input_buf(info_t *info, char **buf, size_t *len)
 {
-	ssize_t r = nil;
-	size_t len_p = nil;
+	ssize_t r = nada;
+	size_t len_p = nada;
 
 	if (!*len) /* if nothing left in the buffer, fill it */
 	{
@@ -25,15 +25,15 @@ ssize_t input_buf(info_t *info, char **buf, size_t *len)
 #else
 		r = _getline(info, buf, &len_p);
 #endif
-		if (r > nil)
+		if (r > nada)
 		{
-			if ((*buf)[r - solo] == '\n')
+			if ((*buf)[r - uno] == '\n')
 			{
-				(*buf)[r - solo] = '\0'; /* remove trailing newline */
+				(*buf)[r - uno] = '\0'; /* remove trailing newline */
 				r--;
 			}
-			info->linecount_flag = solo;
-			remove_comments(*buf);
+			info->linecount_flag = uno;
+			rmcmt(*buf);
 			build_history_list(info, *buf, info->histcount++);
 			/* if (_strchr(*buf, ';')) is this a command chain? */
 			{
@@ -56,13 +56,13 @@ ssize_t get_input(info_t *info)
 {
 	static char *buf; /* the ';' command chain buffer */
 	static size_t i, j, len;
-	ssize_t r = nil;
+	ssize_t r = nada;
 	char **buf_p = &(info->arg), *p;
 
 	_putchar(BUF_FLUSH);
 	r = input_buf(info, &buf, &len);
-	if (r == n_solo) /* EOF */
-		return (n_solo);
+	if (r == n_uno) /* EOF */
+		return (n_uno);
 	if (len) /* we have commands left in the chain buffer */
 	{
 		j = i;		 /* init new iterator to current buf position */
@@ -76,10 +76,10 @@ ssize_t get_input(info_t *info)
 			j++;
 		}
 
-		i = j + solo;	  /* increment past nulled ';'' */
+		i = j + uno;	  /* increment past nulled ';'' */
 		if (i >= len) /* reached end of buffer? */
 		{
-			i = len = nil; /* reset position and length */
+			i = len = nada; /* reset position and length */
 			info->cmd_buf_type = CMD_NORM;
 		}
 
@@ -92,7 +92,7 @@ ssize_t get_input(info_t *info)
 }
 
 /**
- * read_buf - reads a buffer
+ * rd_buf - reads a buffer
  * @info: parameter struct
  * @buf: buffer
  * @i: size
@@ -100,14 +100,14 @@ ssize_t get_input(info_t *info)
  * Return: r
  */
 
-ssize_t read_buf(info_t *info, char *buf, size_t *i)
+ssize_t rd_buf(info_t *info, char *buf, size_t *i)
 {
-	ssize_t r = nil;
+	ssize_t r = nada;
 
 	if (*i)
-		return (nil);
-	r = read(info->readfd, buf, READ_BUF_SIZE);
-	if (r >= nil)
+		return (nada);
+	r = read(info->readfd, buf, RD_BUF_SIZE);
+	if (r >= nada)
 		*i = r;
 	return (r);
 }
@@ -123,32 +123,32 @@ ssize_t read_buf(info_t *info, char *buf, size_t *i)
 
 int _getline(info_t *info, char **ptr, size_t *length)
 {
-	static char buf[READ_BUF_SIZE];
+	static char buf[RD_BUF_SIZE];
 	static size_t i, len;
 	size_t k;
-	ssize_t r = nil, s = nil;
+	ssize_t r = nada, s = nada;
 	char *p = NULL, *new_p = NULL, *c;
 
 	p = *ptr;
 	if (p && length)
 		s = *length;
 	if (i == len)
-		i = len = nil;
+		i = len = nada;
 
-	r = read_buf(info, buf, &len);
-	if (r == n_solo || (r == nil && len == nil))
-		return (n_solo);
+	r = rd_buf(info, buf, &len);
+	if (r == n_uno || (r == nada && len == nada))
+		return (n_uno);
 
 	c = _strchr(buf + i, '\n');
-	k = c ? solo + (unsigned int)(c - buf) : len;
-	new_p = _realloc(p, s, s ? s + k : k + solo);
+	k = c ? uno + (unsigned int)(c - buf) : len;
+	new_p = _realloc(p, s, s ? s + k : k + uno);
 	if (!new_p) /* MALLOC FAILURE! */
-		return (p ? free(p), n_solo : n_solo);
+		return (p ? free(p), n_uno : n_uno);
 
 	if (s)
 		_strncat(new_p, buf + i, k - i);
 	else
-		_strncpy(new_p, buf + i, k - i + solo);
+		_strncpy(new_p, buf + i, k - i + uno);
 
 	s += k - i;
 	i = k;

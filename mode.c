@@ -10,7 +10,7 @@
 
 int interactive(info_t *infor)
 {
-	bool result = (isatty(STDIN_FILENO) && infor->readfd <= duo);
+	bool result = (isatty(STDIN_FILENO) && infor->readfd <= dos);
 
 	return (result);
 }
@@ -26,8 +26,8 @@ int is_delim(char cc, char *dmt)
 {
 	while (*dmt)
 		if (*dmt++ == cc)
-			return (solo);
-	return (nil);
+			return (uno);
+	return (nada);
 }
 
 /**
@@ -39,9 +39,9 @@ int is_delim(char cc, char *dmt)
 int _isalpha(int x)
 {
 	if ((x >= 'a' && x <= 'z') || (x >= 'A' && x <= 'Z'))
-		return (solo);
+		return (uno);
 	else
-		return (nil);
+		return (nada);
 }
 
 /**
@@ -52,25 +52,25 @@ int _isalpha(int x)
 
 int _atoi(char *y)
 {
-	int i, sgn = solo, flag = nil, out_put;
-	unsigned int output = nil;
+	int i, sgn = uno, flag = nada, out_put;
+	unsigned int output = nada;
 
-	for (i = nil; y[i] != '\0' && flag != duo; i++)
+	for (i = nada; y[i] != '\0' && flag != dos; i++)
 	{
 		if (y[i] == '-')
-			sgn *= n_solo;
+			sgn *= n_uno;
 
 		if (y[i] >= '0' && y[i] <= '9')
 		{
-			flag = solo;
+			flag = uno;
 			output *= 10;
 			output += (y[i] - '0');
 		}
-		else if (flag == solo)
-			flag = duo;
+		else if (flag == uno)
+			flag = dos;
 	}
 
-	if (sgn == n_solo)
+	if (sgn == n_uno)
 		out_put = -output;
 	else
 		out_put = output;
