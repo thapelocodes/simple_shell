@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * addnode - adds a node to the start of the list
+ * add_node - adds a node to the start of the list
  * @head: address of pointer to head node
  * @str: str field of node
  * @num: node index used by history
@@ -9,7 +9,7 @@
  * Return: size of list
  */
 
-list_t *addnode(list_t **head, const char *str, int num)
+list_t *add_node(list_t **head, const char *str, int num)
 {
 	list_t *new_head;
 
@@ -18,7 +18,7 @@ list_t *addnode(list_t **head, const char *str, int num)
 	new_head = malloc(sizeof(list_t));
 	if (new_head == NULL)
 		return (NULL);
-	_memset((void *)new_head, nada, sizeof(list_t));
+	_memset((void *)new_head, nil, sizeof(list_t));
 	new_head->num = num;
 	if (str)
 	{
@@ -54,7 +54,7 @@ list_t *add_node_end(list_t **head, const char *str, int num)
 	new_node = malloc(sizeof(list_t));
 	if (new_node == NULL)
 		return (NULL);
-	_memset((void *)new_node, nada, sizeof(list_t));
+	_memset((void *)new_node, nil, sizeof(list_t));
 	new_node->num = num;
 	if (str)
 	{
@@ -83,13 +83,13 @@ list_t *add_node_end(list_t **head, const char *str, int num)
  * Return: size of list
  */
 
-size_t printls(const list_t *h)
+size_t print_list_str(const list_t *h)
 {
-	size_t index = nada;
+	size_t index = nil;
 
 	while (h)
 	{
-		_puts(h->str ? h->str : "(nada)");
+		_puts(h->str ? h->str : "(nil)");
 		_puts("\n");
 		h = h->next;
 		index++;
@@ -108,10 +108,10 @@ size_t printls(const list_t *h)
 int delete_node_at_index(list_t **head, unsigned int index)
 {
 	list_t *node, *prev_node;
-	unsigned int i = nada;
+	unsigned int i = nil;
 
 	if (head == NULL || *head == NULL)
-		return (nada);
+		return (nil);
 
 	if (!index)
 	{
@@ -119,7 +119,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
 		*head = (*head)->next;
 		free(node->str);
 		free(node);
-		return (uno);
+		return (solo);
 	}
 	node = *head;
 	while (node)
@@ -129,13 +129,13 @@ int delete_node_at_index(list_t **head, unsigned int index)
 			prev_node->next = node->next;
 			free(node->str);
 			free(node);
-			return (uno);
+			return (solo);
 		}
 		i++;
 		prev_node = node;
 		node = node->next;
 	}
-	return (nada);
+	return (nil);
 }
 
 /**

@@ -10,35 +10,35 @@
 
 int hsh(info_t *info, char **av)
 {
-	ssize_t rs = nada;
-	int builtin_ret = nada;
+	ssize_t rs = nil;
+	int builtin_ret = nil;
 
-	while (rs != nuno && builtin_ret != -2)
+	while (rs != n_solo && builtin_ret != -2)
 	{
 		clear_info(info);
 		if (interactive(info))
 			_puts("$ ");
 		_eputchar(BUF_FLUSH);
 		rs = get_input(info);
-		if (rs != nuno)
+		if (rs != n_solo)
 		{
 			set_info(info, av);
 			builtin_ret = find_builtin(info);
-			if (builtin_ret == nuno)
+			if (builtin_ret == n_solo)
 				find_cmd(info);
 		}
 		else if (interactive(info))
 			_putchar('\n');
-		free_info(info, nada);
+		free_info(info, nil);
 	}
 
 	write_history(info);
-	free_info(info, uno);
+	free_info(info, solo);
 	if (!interactive(info) && info->status)
 		exit(info->status);
 	if (builtin_ret == -2)
 	{
-		if (info->err_num == nuno)
+		if (info->err_num == n_solo)
 			exit(info->status);
 		exit(info->err_num);
 	}
@@ -58,13 +58,13 @@ int hsh(info_t *info, char **av)
 
 int find_builtin(info_t *info)
 {
-	int index, builtin_ret = nuno;
+	int index, builtin_ret = n_solo;
 	builtin_table builtintbl[] = {
 		{ "exit", _myexit
 		},
 		{ "env", _myenv
 		},
-		{ "_myhelp", _myhelp
+		{ "help", _myhelp
 		},
 		{ "history", _myhistory
 		},
@@ -81,9 +81,9 @@ int find_builtin(info_t *info)
 		}
 	};
 
-	for (index = nada; builtintbl[index].type; index++)
-		if (_strcmp(info->argv[nada],
-				builtintbl[index].type) == nada)
+	for (index = nil; builtintbl[index].type; index++)
+		if (_strcmp(info->argv[nil],
+				builtintbl[index].type) == nil)
 		{
 			info->line_count++;
 			builtin_ret = builtintbl[index].func(info);
@@ -105,21 +105,21 @@ void find_cmd(info_t *info)
 	char *path = NULL;
 	int index, xk;
 
-	info->path = info->argv[nada];
-	if (info->linecount_flag == uno)
+	info->path = info->argv[nil];
+	if (info->linecount_flag == solo)
 	{
 		info->line_count++;
-		info->linecount_flag = nada;
+		info->linecount_flag = nil;
 	}
 
-	for (index = nada, xk = nada; info->arg[index]; index++)
+	for (index = nil, xk = nil; info->arg[index]; index++)
 		if (!is_delim(info->arg[index], " \t\n"))
 			xk++;
 	if (!xk)
 		return;
 
 	path = find_path(info, _getenv(info, "PATH="),
-		info->argv[nada]);
+		info->argv[nil]);
 	if (path)
 	{
 		info->path = path;
@@ -128,8 +128,8 @@ void find_cmd(info_t *info)
 	else
 	{
 		if ((interactive(info) || _getenv(info, "PATH=") ||
-				info->argv[nada][nada] == '/') &&
-			is_cmd(info, info->argv[nada]))
+				info->argv[nil][nil] == '/') &&
+			is_cmd(info, info->argv[nil]))
 			fork_cmd(info);
 		else if (*(info->arg) != '\n')
 		{
@@ -151,21 +151,21 @@ void fork_cmd(info_t *info)
 	pid_t pod_child;
 
 	pod_child = fork();
-	if (pod_child == nuno)
+	if (pod_child == n_solo)
 	{
 		perror("Error:");
 		return;
 	}
 
-	if (pod_child == nada)
+	if (pod_child == nil)
 	{
 		if (execve(info->path, info->argv,
-				get_environ(info)) == nuno)
+				get_environ(info)) == n_solo)
 		{
-			free_info(info, uno);
+			free_info(info, solo);
 			if (errno == EACCES)
 				exit(126);
-			exit(uno);
+			exit(solo);
 		}
 	}
 	else
@@ -178,18 +178,4 @@ void fork_cmd(info_t *info)
 				print_error(info, "Permission denied\n");
 		}
 	}
-}
-
-/**
- *interactive - returns true if shell is interactive mode
- *@infor: struct address
- *
- *Return: 1 if interactive mode, 0 otherwise
- */
-
-int interactive(info_t *infor)
-{
-	bool result = (isatty(STDIN_FILENO) && infor->readfd <= dos);
-
-	return (result);
 }

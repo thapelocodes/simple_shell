@@ -9,7 +9,7 @@
 
 size_t list_len(const list_t *h)
 {
-	size_t i = nada;
+	size_t i = nil;
 
 	while (h)
 	{
@@ -35,15 +35,15 @@ char **list_to_strings(list_t *head)
 
 	if (!head || !i)
 		return (NULL);
-	strs = malloc(sizeof(char *) * (i + uno));
+	strs = malloc(sizeof(char *) * (i + solo));
 	if (!strs)
 		return (NULL);
-	for (i = nada; node; node = node->next, i++)
+	for (i = nil; node; node = node->next, i++)
 	{
-		str = malloc(_strlen(node->str) + uno);
+		str = malloc(_strlen(node->str) + solo);
 		if (!str)
 		{
-			for (j = nada; j < i; j++)
+			for (j = nil; j < i; j++)
 				free(strs[j]);
 			free(strs);
 			return (NULL);
@@ -65,14 +65,14 @@ char **list_to_strings(list_t *head)
 
 size_t print_list(const list_t *h)
 {
-	size_t i = nada;
+	size_t i = nil;
 
 	while (h)
 	{
-		_puts(_itoa(h->num, 10, nada));
+		_puts(convert_number(h->num, 10, nil));
 		_putchar(':');
 		_putchar(' ');
-		_puts(h->str ? h->str : "(nada)");
+		_puts(h->str ? h->str : "(nil)");
 		_puts("\n");
 		h = h->next;
 		i++;
@@ -81,7 +81,7 @@ size_t print_list(const list_t *h)
 }
 
 /**
- * nstart - returns node whose string starts with prefix
+ * node_starts_with - returns node whose string starts with prefix
  * @node: pointer to list head
  * @prefix: string to match
  * @c: the next character after prefix to match
@@ -89,14 +89,14 @@ size_t print_list(const list_t *h)
  * Return: match node or null
  */
 
-list_t *nstart(list_t *node, char *prefix, char c)
+list_t *node_starts_with(list_t *node, char *prefix, char c)
 {
 	char *p = NULL;
 
 	while (node)
 	{
 		p = starts_with(node->str, prefix);
-		if (p && ((c == nuno) || (*p == c)))
+		if (p && ((c == n_solo) || (*p == c)))
 			return (node);
 		node = node->next;
 	}
@@ -113,7 +113,7 @@ list_t *nstart(list_t *node, char *prefix, char c)
 
 ssize_t get_node_index(list_t *head, list_t *node)
 {
-	size_t i = nada;
+	size_t i = nil;
 
 	while (head)
 	{
@@ -122,5 +122,5 @@ ssize_t get_node_index(list_t *head, list_t *node)
 		head = head->next;
 		i++;
 	}
-	return (nuno);
+	return (n_solo);
 }
